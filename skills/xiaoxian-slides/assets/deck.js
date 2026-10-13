@@ -22,6 +22,8 @@
   let index = 0;
   let ready = false;
   let presenterWindow = null;
+  let presenterSender = null;
+  let leavingPresenter = false;
   let lastFocus = null;
   let toastTimeout;
   let controlsTimeout;
@@ -31,6 +33,7 @@
   let lastTick = performance.now();
   const params = new URLSearchParams(location.search);
   const isPresenter = params.get('presenter') === '1';
+  $('outline-title').textContent = string(deck.title);
   const randomId = () => globalThis.crypto && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   const requestedInstance = params.get('instance');
   const hasInstance = typeof requestedInstance === 'string' && /^[a-zA-Z0-9-]{8,100}$/.test(requestedInstance);
@@ -40,6 +43,7 @@
   let messageSequence = 0;
   let syncChannel = null;
   let storageAvailable = false;
+  let readStoredPacket = () => {};
   const seenPackets = new Set();
   const hashText = JSON.stringify(deck);
   let hash = 2166136261;
@@ -157,12 +161,31 @@
     footer.append(progress, node('span', 'slide-author', string(deck.author) || string(deck.subtitle) || '让每一页，都有一个值得记住的想法。'), node('span', 'slide-number', `${String(slideIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`));
     section.append(header, content, footer); stage.append(section);
     const li = node('li'); const button = node('button'); button.type = 'button';
-    button.append(node('span', 'outline-number', String(slideIndex + 1).padStart(2, '0')), node('span', '', string(slide.title).replace(/\n/g, ' ')));
+    button.append(
+      node('span', 'outline-number', String(slideIndex + 1).padStart(2, '0')),
+      node('strong', 'outline-card-title', string(slide.title).replace(/\n/g, ' ')),
+      node('span', 'outline-chapter', string(slide.chapter) || string(slide.kicker) || `第 ${slideIndex + 1} 页`)
+    );
     button.addEventListener('click', () => { go(slideIndex); closeDialog($('outline-dialog')); });
     li.append(button); $('outline-list').append(li);
   });
   const sections = Array.from(stage.children);
   const outlineButtons = Array.from($('outline-list').querySelectorAll('button'));
+  $('outline-list').addEventListener('keydown', (event) => {
+    const focused = outlineButtons.indexOf(document.activeElement);
+    if (focused < 0) return;
+    const columns = Math.max(1, getComputedStyle($('outline-list')).gridTemplateColumns.split(' ').length);
+    const moves = {ArrowRight:1, ArrowLeft:-1, ArrowDown:columns, ArrowUp:-columns};
+    let target;
+    if (Object.hasOwn(moves, event.key)) target = focused + moves[event.key];
+    else if (event.key === 'Home') target = 0;
+    else if (event.key === 'End') target = outlineButtons.length - 1;
+    else return;
+    event.preventDefault();
+    const button = outlineButtons[Math.max(0, Math.min(outlineButtons.length - 1, target))];
+    button.focus({preventScroll:true});
+    button.scrollIntoView({block:'nearest', inline:'nearest'});
+  });
   const notify = (message) => {
     $('status').textContent = message;
     $('status').classList.add('visible');
@@ -267,7 +290,10 @@
     lastFocus = document.activeElement;
     dialog.showModal();
     const activeButton = dialog.id === 'outline-dialog' ? outlineButtons[index] : dialog.querySelector('button');
-    if (activeButton) activeButton.focus();
+    if (activeButton) {
+      activeButton.focus({preventScroll:true});
+      if (dialog.id === 'outline-dialog') activeButton.scrollIntoView({block:'center', inline:'nearest'});
+    }
   };
   document.querySelectorAll('dialog').forEach((dialog) => {
     dialog.querySelector('.close-dialog').addEventListener('click', () => closeDialog(dialog));
@@ -296,12 +322,31 @@
   };
   const openPresenter = () => {
     if (isPresenter) return;
+    // A returned speaker may have navigated before the recovery poll ran.
+    // Consume its exit record inside the user's gesture before reusing a window.
+    readStoredPacket();
     if (presenterWindow && !presenterWindow.closed) { presenterWindow.focus(); return; }
+    presenterSender = null;
     const url = new URL(location.href);
     url.searchParams.set('presenter', '1'); url.searchParams.set('instance', instance); url.hash = `slide-${index + 1}`;
     presenterWindow = window.open(url.href, `xiaoxian-presenter-${instance}`, 'popup,width=1280,height=850');
     if (!presenterWindow) notify('讲者窗口被浏览器拦截。请允许此文件打开弹出窗口，然后再按 P。');
     else post(presenterWindow, 'state', {index});
+  };
+  const returnToPresentation = () => {
+    if (!isPresenter || leavingPresenter) return;
+    leavingPresenter = true;
+    timerRunning = false;
+    $('presenter-return').disabled = true;
+    post(window.opener, 'presenter-exit', {index});
+    // A navigation rebuilds the role, timers and sync channel. It also works when
+    // an embedded browser cannot focus/close an opener, or no opener exists.
+    window.name = '';
+    const url = new URL(location.href);
+    url.searchParams.delete('presenter');
+    url.searchParams.delete('instance');
+    url.hash = `slide-${index + 1}`;
+    location.replace(url.href);
   };
   $('previous').addEventListener('click', () => go(index - 1));
   $('next').addEventListener('click', () => go(index + 1));
@@ -336,6 +381,7 @@
     else if (event.key.toLowerCase() === 'p') action = openPresenter;
     else if (event.key === '?') action = () => openDialog($('help-dialog'));
     else if (event.key === 'Escape' && document.fullscreenElement) action = fullscreen;
+    else if (event.key === 'Escape' && isPresenter) action = returnToPresentation;
     if (action) { event.preventDefault(); action(); }
   });
   let touchStart = null;
@@ -367,8 +413,18 @@
       $('connection-status').textContent = '已连接演示窗口 · 翻页实时同步';
       go(message.index, {broadcast:false});
     } else {
-      if (message.type === 'ready') post(presenterWindow, 'state', {index});
-      if (message.type === 'navigate' && Number.isInteger(message.index)) go(message.index);
+      const sender = message.packet.split(':')[0];
+      if (message.type === 'ready') { presenterSender = sender; post(presenterWindow, 'state', {index}); }
+      if (message.type === 'navigate' && Number.isInteger(message.index) && (!presenterSender || presenterSender === sender)) go(message.index);
+      if (message.type === 'presenter-exit' && (!presenterSender || presenterSender === sender)) {
+        presenterWindow = null;
+        presenterSender = null;
+        if (Number.isInteger(message.index)) go(message.index, {broadcast:false});
+        try {
+          const stored = JSON.parse(localStorage.getItem(storageKey('presenter')) || 'null');
+          if (stored?.packet === message.packet) localStorage.removeItem(storageKey('presenter'));
+        } catch (error) { /* Storage can be unavailable. */ }
+      }
     }
   };
   window.addEventListener('message', (event) => {
@@ -388,7 +444,7 @@
       localStorage.setItem(probe, '1'); localStorage.removeItem(probe);
       storageAvailable = true;
     } catch (error) { /* Storage may be disabled in private browsing. */ }
-    const readStoredPacket = () => {
+    readStoredPacket = () => {
       if (!storageAvailable) return;
       try {
         const value = localStorage.getItem(storageKey(isPresenter ? 'main' : 'presenter'));
@@ -404,7 +460,7 @@
     window.addEventListener('pagehide', () => {
       clearInterval(recoveryTimer);
       if (syncChannel) syncChannel.close();
-      if (storageAvailable) {
+      if (storageAvailable && !leavingPresenter) {
         try { localStorage.removeItem(storageKey(senderRole)); } catch (error) { /* best effort */ }
       }
     }, {once:true});
@@ -417,6 +473,7 @@
     document.title = `讲者 · ${string(deck.title)}`;
     $('presenter-previous').addEventListener('click', () => go(index - 1));
     $('presenter-next').addEventListener('click', () => go(index + 1));
+    $('presenter-return').addEventListener('click', returnToPresentation);
     $('timer-toggle').addEventListener('click', () => {
       timerRunning = !timerRunning; lastTick = performance.now();
       $('timer-toggle').textContent = timerRunning ? '暂停计时' : '继续计时';

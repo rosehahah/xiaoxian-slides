@@ -36,6 +36,7 @@ test('rejects unknown layouts, themes, fields and wrong types with page numbers'
     [slide => { slide.theme = 'pink'; }, /第 1 页.*未知主题/],
     [slide => { slide.titel = 'typo'; }, /第 1 页.*titel/],
     [slide => { slide.body = ['a']; }, /第 1 页.body.*字符串/],
+    [slide => { slide.chapter = ['a']; }, /第 1 页.chapter.*字符串/],
     [slide => { slide.seconds = -1; }, /第 1 页.*seconds/],
     [slide => { slide.title = ' '; }, /第 1 页标题.*不能为空/],
     [slide => { slide.imageAlt = 'A'; }, /第 1 页.*imageAlt/],

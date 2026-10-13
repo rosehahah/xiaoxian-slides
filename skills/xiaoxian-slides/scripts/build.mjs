@@ -8,7 +8,7 @@ const ASSETS = path.resolve(HERE, '../assets');
 const LAYOUTS = new Set(['cover', 'statement', 'split', 'cards', 'steps', 'timeline', 'quote', 'end']);
 const THEMES = new Set(['paper', 'blue', 'ink', 'lime', 'coral']);
 const DECK_KEYS = new Set(['title', 'author', 'subtitle', 'slides']);
-const SLIDE_KEYS = new Set(['layout', 'title', 'body', 'kicker', 'theme', 'items', 'image', 'imageAlt', 'notes', 'seconds']);
+const SLIDE_KEYS = new Set(['layout', 'title', 'body', 'kicker', 'chapter', 'theme', 'items', 'image', 'imageAlt', 'notes', 'seconds']);
 const ITEM_KEYS = new Set(['title', 'body']);
 const MIMES = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif' };
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
@@ -38,7 +38,7 @@ export function validateDeck(deck) {
     object(slide, where, SLIDE_KEYS);
     if (!LAYOUTS.has(slide.layout)) fail(where, `未知版式 “${String(slide.layout)}”；可用 ${[...LAYOUTS].join(', ')}。`);
     string(slide.title, `${where}标题`, { nonempty: true });
-    for (const key of ['body', 'kicker', 'image', 'imageAlt', 'notes']) string(slide[key], `${where}.${key}`, { optional: true });
+    for (const key of ['body', 'kicker', 'chapter', 'image', 'imageAlt', 'notes']) string(slide[key], `${where}.${key}`, { optional: true });
     if (slide.image !== undefined && !slide.image.trim()) fail(where, 'image 不能为空。');
     if (slide.imageAlt !== undefined && !slide.image) fail(where, 'imageAlt 需要同时提供 image。');
     if (slide.image && !['cover', 'split'].includes(slide.layout)) fail(where, `${slide.layout} 版式不显示图片，请使用 cover 或 split。`);

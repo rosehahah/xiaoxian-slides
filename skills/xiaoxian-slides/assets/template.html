@@ -23,10 +23,9 @@
     <button id="print-button" type="button" title="打印全部页面或另存为 PDF">PDF</button>
     <button id="help-button" type="button" aria-label="快捷键帮助，问号">?</button>
   </nav>
-  <dialog id="outline-dialog" class="modal" aria-labelledby="outline-title">
-    <div class="modal-heading"><h2 id="outline-title">跳到任意一页</h2><button type="button" class="close-dialog" aria-label="关闭目录">×</button></div>
-    <p class="modal-hint">点击页面标题即可跳转。按 Esc 返回演示。</p>
-    <ol id="outline-list"></ol>
+  <dialog id="outline-dialog" class="modal overview-modal" aria-labelledby="outline-title">
+    <header class="overview-heading"><h2 id="outline-title">演示目录</h2><button id="outline-return" type="button" class="close-dialog">返回演示 · Esc</button></header>
+    <ol id="outline-list" aria-label="全部页面"></ol>
   </dialog>
   <dialog id="help-dialog" class="modal" aria-labelledby="help-title">
     <div class="modal-heading"><h2 id="help-title">把舞台交给内容。</h2><button type="button" class="close-dialog" aria-label="关闭帮助">×</button></div>
@@ -38,13 +37,13 @@
       <div><dt><kbd>F</kbd></dt><dd>进入或退出全屏</dd></div>
       <div><dt><kbd>O</kbd></dt><dd>打开目录</dd></div>
       <div><dt><kbd>P</kbd></dt><dd>打开讲者窗口：备注、计时、下一页</dd></div>
-      <div><dt><kbd>?</kbd> / <kbd>Esc</kbd></dt><dd>打开帮助 / 关闭弹层</dd></div>
+      <div><dt><kbd>?</kbd> / <kbd>Esc</kbd></dt><dd>打开帮助 / 关闭面板或退出全屏</dd></div>
       <div><dt>触摸左右滑动</dt><dd>翻页</dd></div>
     </dl>
     <p class="modal-hint">导出 PDF：选择横向、无边距、背景图形。讲者窗口仅显示在你的屏幕上；投影时选择演示窗口。</p>
   </dialog>
   <main id="presenter" hidden>
-    <header class="presenter-header"><div><span class="presenter-label">小苋演示 / 讲者模式</span><h1 id="presenter-title"></h1></div><span id="connection-status" role="status">正在连接演示窗口…</span></header>
+    <header class="presenter-header"><div><span class="presenter-label">小苋演示 / 讲者模式</span><h1 id="presenter-title"></h1></div><div class="presenter-actions"><span id="connection-status" role="status">正在连接演示窗口…</span><button id="presenter-return" type="button">返回演示 · Esc</button></div></header>
     <div class="presenter-workspace">
       <div class="presenter-left"><div id="preview-slot"></div><div class="presenter-navigation"><button id="presenter-previous" type="button">← 上一页</button><span id="presenter-count"></span><button id="presenter-next" type="button">下一页 →</button></div><div class="next-preview"><span>接下来</span><strong id="next-title"></strong></div></div>
       <aside class="presenter-notes"><div class="timer-block"><span>总用时</span><strong id="elapsed">00:00</strong><div><button id="timer-toggle" type="button">开始计时</button><button id="timer-reset" type="button">归零</button></div><p id="slide-timing"></p></div><div class="notes-block"><h2>本页备注</h2><p id="speaker-notes"></p></div></aside>
