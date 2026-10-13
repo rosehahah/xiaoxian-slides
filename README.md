@@ -47,6 +47,26 @@ GitHub 上直接点击 HTML 文件通常会看到代码；**下载后用浏览�
 
 这套模板提供纸色、蓝色、墨黑、荧光黄和暖珊瑚色主题，以及八种页面：封面、观点、双栏、卡片、步骤、时间线、引用、结尾。整体采用杂志式排版，让标题、图像和留白形成讲述节奏。
 
+### 五种主题
+
+以下是同一页内容的实际截图，方便比较配色。**点击任意图片可查看原图。** 一份演示也可以混用不同主题，突出重点、区分章节。
+
+| 纸色 | 蓝色 | 墨黑 | 荧光黄 | 暖珊瑚 |
+|---|---|---|---|---|
+| [![纸色主题截图](docs/screenshots/themes/paper.png)](docs/screenshots/themes/paper.png) | [![蓝色主题截图](docs/screenshots/themes/blue.png)](docs/screenshots/themes/blue.png) | [![墨黑主题截图](docs/screenshots/themes/ink.png)](docs/screenshots/themes/ink.png) | [![荧光黄主题截图](docs/screenshots/themes/lime.png)](docs/screenshots/themes/lime.png) | [![暖珊瑚主题截图](docs/screenshots/themes/coral.png)](docs/screenshots/themes/coral.png) |
+| 日常分享、正文讲解 | 强调观点、章节转场 | 引用、沉静的收束 | 练习、关键提醒 | 故事、行动号召 |
+
+### 八种页面
+
+以下截图来自公开示例。根据这一页要讲的内容选择版式，不需要每一页都换一种。
+
+| 页面预览 | 页面预览 |
+|---|---|
+| **封面** · 介绍主题与讲者<br>[![封面页面截图](docs/screenshots/layouts/cover.png)](docs/screenshots/layouts/cover.png) | **观点** · 让一句重点被记住<br>[![观点页面截图](docs/screenshots/layouts/statement.png)](docs/screenshots/layouts/statement.png) |
+| **双栏** · 做对比、并列解释或图文搭配<br>[![双栏页面截图](docs/screenshots/layouts/split.png)](docs/screenshots/layouts/split.png) | **卡片** · 整理几个并列要点<br>[![卡片页面截图](docs/screenshots/layouts/cards.png)](docs/screenshots/layouts/cards.png) |
+| **步骤** · 讲清操作顺序与方法<br>[![步骤页面截图](docs/screenshots/layouts/steps.png)](docs/screenshots/layouts/steps.png) | **时间线** · 展示进程、安排与阶段<br>[![时间线页面截图](docs/screenshots/layouts/timeline.png)](docs/screenshots/layouts/timeline.png) |
+| **引用** · 突出一句话与它的出处<br>[![引用页面截图](docs/screenshots/layouts/quote.png)](docs/screenshots/layouts/quote.png) | **结尾** · 收束内容，给出下一步<br>[![结尾页面截图](docs/screenshots/layouts/end.png)](docs/screenshots/layouts/end.png) |
+
 | 形式 | 能做到什么 | 适合用来 |
 |---|---|---|
 | HTML | 页面切换、快捷键、目录、全屏、讲者备注、本地图片内嵌 | 现场演示、自己排练、分享给他人 |
