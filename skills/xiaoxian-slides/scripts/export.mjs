@@ -79,7 +79,7 @@ export async function exportDeck(input, { outDir = 'output', format = 'both' } =
       pptx.title = metadata.title;
       pptx.company = 'Xiaoxian Slides';
       pptx.lang = 'zh-CN';
-      await page.addStyleTag({ content: `*,*::before,*::after{animation:none!important;transition:none!important}#toolbar,.modal,.toast,#presenter{display:none!important}#viewport{inset:0!important}#stage{transform:none!important;flex:none!important}` });
+      await page.addStyleTag({ content: `*,*::before,*::after{animation:none!important;transition:none!important}#toolbar,.modal,.toast,#presenter{display:none!important}#viewport{inset:0!important}#stage{position:relative!important;left:auto!important;top:auto!important;transform:none!important;flex:none!important}` });
       for (let index = 0; index < metadata.slides.length; index++) {
         await page.evaluate(index => window.xiaoxian.go(index), index);
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));

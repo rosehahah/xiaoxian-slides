@@ -230,7 +230,7 @@
   const resize = () => {
     const bounds = viewport.getBoundingClientRect();
     const scale = Math.max(.01, Math.min(bounds.width / 1600, bounds.height / 900));
-    stage.style.transform = `scale(${scale})`;
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
   };
   const showControls = () => {
     clearTimeout(controlsTimeout);

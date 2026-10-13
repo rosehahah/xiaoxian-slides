@@ -1,6 +1,6 @@
 {
   "name": "xiaoxian-slides",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "小苋演示：可离线播放的 HTML 演示 Skill 与模板",
