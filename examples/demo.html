@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="generator" content="小苋演示">
+  <title>把一个想法，讲清楚</title>
+  <style>/* 小苋演示 · 1600 × 900 · self-contained and offline */
+:root{--paper:#f6f3ec;--ink:#191b1a;--blue:#2d43f5;--lime:#e2f34b;--coral:#ff684b;--sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;--roman:"Avenir Next","Trebuchet MS",sans-serif}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#121513;color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased}h1,h2,h3,p,figure,blockquote{margin:0}button{font:inherit;cursor:pointer}button:disabled{opacity:.35;cursor:default}button:focus-visible{outline:3px solid var(--coral);outline-offset:4px}button,kbd{border-radius:0}button{touch-action:manipulation}button:active:not(:disabled){transform:translateY(1px)}[hidden]{display:none!important}
+#viewport{position:absolute;inset:0 0 76px;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y}#stage{position:relative;width:1600px;height:900px;flex:none;transform-origin:center;overflow:hidden;background:var(--paper)}
+.slide{position:absolute;inset:0;overflow:hidden;visibility:hidden;opacity:0;pointer-events:none;background:var(--paper);color:var(--ink);--accent:var(--blue);--muted:#555951;--rule:#191b1a36;--soft:#191b1a08;--accent-ink:var(--paper)}.slide.active{visibility:visible;opacity:1;pointer-events:auto;animation:slide-enter .44s cubic-bezier(.2,.72,.2,1)}.slide[data-direction="back"].active{animation-name:slide-enter-back}.theme-blue{background:var(--blue);color:var(--paper);--accent:var(--lime);--muted:#e0e4ff;--rule:#ffffff50;--soft:#ffffff0a;--accent-ink:var(--ink)}.theme-ink{background:var(--ink);color:var(--paper);--accent:var(--lime);--muted:#ccd0c6;--rule:#ffffff40;--soft:#ffffff0a;--accent-ink:var(--ink)}.theme-lime{background:var(--lime);--accent:var(--blue);--soft:#191b1a09}.theme-coral{background:var(--coral);--accent:var(--ink);--muted:#3b2b26;--accent-ink:var(--paper)}
+.slide-header{position:absolute;top:42px;left:76px;right:76px;display:flex;align-items:center;justify-content:space-between;gap:40px;font-size:20px;line-height:1.4;letter-spacing:.8px;z-index:3}.chapter{display:flex;align-items:center;gap:14px;min-width:0}.chapter:before{content:"";width:12px;height:12px;flex:none;background:var(--accent)}.chapter-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:1100px}.slide-brand{font-size:18px;white-space:nowrap}.slide-footer{position:absolute;left:76px;right:76px;bottom:31px;display:flex;align-items:center;justify-content:space-between;gap:40px;font-size:18px;z-index:3}.slide-author{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:1100px}.progress-track{position:absolute;left:0;right:0;top:-20px;height:2px;background:var(--rule)}.progress-fill{display:block;height:100%;background:currentColor}.slide-number{font-family:var(--roman);font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:1px}.content{position:absolute;left:76px;right:76px;top:144px;bottom:112px}.slide h1,.slide h2{font-weight:800;letter-spacing:-3px;line-height:1.16;text-wrap:balance;white-space:pre-line;overflow-wrap:anywhere}.slide h3{font-size:36px;font-weight:700;line-height:1.3;white-space:pre-line;overflow-wrap:anywhere}.slide p{white-space:pre-line;overflow-wrap:anywhere}.body{font-size:32px;line-height:1.58;color:var(--muted)}.kicker{font-size:23px;line-height:1.4;font-weight:700;letter-spacing:1.5px;color:var(--accent)}.page-heading{font-size:76px;max-height:190px}.page-description{font-size:28px;line-height:1.5;color:var(--muted);margin-top:20px;max-width:1250px}.layout-title{min-width:0}.layout-cards .kicker,.layout-steps .kicker,.layout-timeline .kicker{margin-bottom:16px}.geometric-art{position:relative;width:440px;height:440px;flex:none}.art-disc{position:absolute;width:310px;height:310px;top:60px;left:65px;background:var(--accent);border-radius:50%}.art-disc:after{content:"";position:absolute;inset:63px;border:3px solid var(--accent-ink);border-radius:50%}.art-cross{position:absolute;top:20px;right:15px;width:130px;height:130px;transform:rotate(15deg)}.art-cross:before,.art-cross:after{content:"";position:absolute;top:52px;left:0;width:130px;height:25px;background:currentColor}.art-cross:after{transform:rotate(90deg)}.art-arrow{position:absolute;left:0;bottom:5px;font-family:var(--roman);font-size:180px;line-height:1;color:currentColor;transform:rotate(-5deg)}.art-orbit{position:absolute;inset:10px;border:2px solid currentColor;border-radius:50%;transform:rotate(-28deg) scaleX(.7)}.active .geometric-art{animation:art-enter .7s cubic-bezier(.2,.7,.2,1)}
+/* Cover: oversized headline plus a single visual anchor. */
+.layout-cover .content{display:flex;align-items:center;justify-content:space-between;gap:45px}.cover-copy{position:relative;z-index:1;flex:1;min-width:0;max-width:1010px}.layout-cover h1{font-size:128px;line-height:1.13;margin:30px 0 34px;max-height:430px}.layout-cover .body{font-size:32px;max-width:880px}.cover-image{width:440px;height:490px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid currentColor;transform:rotate(3deg);padding:15px;background:var(--soft)}.cover-image img{width:100%;height:100%;object-fit:contain}
+/* Statement: one idea, one page. */
+.layout-statement .content{display:flex;flex-direction:column;justify-content:center}.layout-statement h2{font-size:120px;line-height:1.17;max-width:1240px;max-height:430px;margin:26px 0 32px;position:relative;z-index:1}.layout-statement .body{font-size:35px;max-width:1120px;position:relative;z-index:1}.statement-mark{position:absolute;right:3px;top:8px;font:800 390px/1 var(--roman);opacity:.075;color:var(--accent);user-select:none}.layout-statement .kicker{position:relative;z-index:1}
+/* Split: explanation on the left, evidence or comparison on the right. */
+.layout-split .content{display:grid;grid-template-columns:1.04fr 1fr;gap:80px;align-items:center}.layout-split h2{font-size:96px;max-height:360px;margin:28px 0 32px}.layout-split .body{font-size:31px;max-width:670px}.split-visual{height:570px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:20px}.split-image{height:100%;width:100%;object-fit:contain;border:2px solid currentColor;padding:15px;background:var(--soft)}.split-item{border:2px solid currentColor;padding:30px 35px;position:relative}.split-item:nth-child(even){background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.split-item h3{font-size:40px}.split-item p{font-size:27px;line-height:1.5;margin-top:15px;opacity:.85}.split-item .item-number{font:700 20px var(--roman);display:block;margin-bottom:14px;opacity:.7}
+/* Cards: generous, flat, bounded groups. */
+.layout-cards .content{display:flex;flex-direction:column}.cards-grid{display:grid;grid-template-columns:repeat(var(--items,3),minmax(0,1fr));gap:24px;flex:1;min-height:0;margin-top:34px}.card{border-top:3px solid currentColor;position:relative;padding:28px 26px;background:var(--soft);min-width:0}.card:nth-child(2){background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.card .item-number{font:700 68px/1 var(--roman);letter-spacing:-4px;display:block;margin-bottom:24px}.card h3{font-size:39px}.card p{font-size:28px;line-height:1.55;margin-top:18px;opacity:.85}.cards-grid[data-count="4"] .card{padding:27px 23px}.cards-grid[data-count="4"] .card h3{font-size:34px}.cards-grid[data-count="4"] .card p{font-size:25px}
+/* Steps: staggered blocks make sequence visible. */
+.layout-steps .content{display:flex;flex-direction:column}.steps-grid{display:grid;grid-template-columns:repeat(var(--items,3),minmax(0,1fr));gap:0;margin-top:40px;flex:1;padding-bottom:58px;min-height:0}.step{border:2px solid currentColor;border-right:0;padding:28px;min-width:0;position:relative;transform:translateY(calc(var(--item-index) * 20px));background:var(--soft)}.step:last-child{border-right:2px solid currentColor;background:var(--accent);color:var(--accent-ink)}.step .item-number{display:block;font:700 68px/1 var(--roman);letter-spacing:-3px;margin-bottom:24px}.step h3{font-size:38px}.step p{font-size:26px;line-height:1.5;margin-top:20px;opacity:.85}.steps-grid[data-count="4"] .step,.steps-grid[data-count="5"] .step{padding:26px}.steps-grid[data-count="5"] .step h3{font-size:31px}.steps-grid[data-count="5"] .step p{font-size:23px}.steps-grid[data-count="5"] .item-number{font-size:60px}
+/* Timeline: one clear thread, with sparse milestone descriptions. */
+.layout-timeline .content{display:flex;flex-direction:column}.timeline-grid{display:grid;grid-template-columns:repeat(var(--items,4),minmax(0,1fr));gap:28px;margin-top:72px;position:relative;flex:1;min-height:0}.timeline-grid:before{content:"";position:absolute;left:0;right:0;top:67px;border-top:2px solid var(--rule)}.milestone{position:relative;min-width:0}.milestone .item-number{font:700 48px/1 var(--roman);color:var(--accent);display:block;margin-bottom:48px}.milestone:before{content:"";position:absolute;width:15px;height:15px;left:0;top:60px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 8px var(--paper)}.theme-blue .milestone:before{box-shadow:0 0 0 8px var(--blue)}.theme-ink .milestone:before{box-shadow:0 0 0 8px var(--ink)}.theme-lime .milestone:before{box-shadow:0 0 0 8px var(--lime)}.theme-coral .milestone:before{box-shadow:0 0 0 8px var(--coral)}.milestone h3{font-size:37px}.milestone p{font-size:27px;line-height:1.55;color:var(--muted);margin-top:22px}.timeline-grid[data-count="5"] .milestone h3{font-size:32px}.timeline-grid[data-count="5"] .milestone p{font-size:24px}
+/* Quote: text is the artwork. */
+.layout-quote .content{display:flex;flex-direction:column;justify-content:center;padding-left:86px;border-left:6px solid var(--accent);top:168px;bottom:148px}.quote-mark{font:700 170px/.6 Georgia,serif;color:var(--accent);margin-bottom:22px}.layout-quote h2{font-size:94px;line-height:1.24;max-width:1220px;max-height:400px;letter-spacing:-2px}.layout-quote .body{font-size:29px;margin-top:36px;max-width:1100px}.layout-quote .kicker{margin-bottom:20px}.layout-end .content{display:flex;flex-direction:column;justify-content:center}.layout-end h2{font-size:125px;max-width:1180px;max-height:430px;margin:28px 0 32px}.layout-end .body{font-size:35px;max-width:1100px}.end-line{position:absolute;right:0;top:30px;bottom:0;width:180px;border-top:3px solid currentColor;border-right:3px solid currentColor}.end-line:after{content:"↗";position:absolute;top:-25px;right:-15px;font:700 180px/1 var(--roman);color:var(--accent);background:inherit}.end-items{display:flex;gap:30px;margin-top:40px}.end-item{border-top:2px solid var(--rule);padding-top:16px;max-width:370px;font-size:24px;line-height:1.5}.end-item strong{display:block;margin-bottom:6px}.end-item p{color:var(--muted)}
+/* Controls live outside the presentation frame. */
+#toolbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:6px 10px;background:#232722;border:1px solid #ffffff22;box-shadow:0 4px 20px #0003;z-index:10;white-space:nowrap}#toolbar button{border:0;background:transparent;color:var(--paper);padding:9px 12px;font-size:14px;min-height:36px}#toolbar button:hover:not(:disabled){background:#ffffff15}#page-count{font:500 14px var(--roman);font-variant-numeric:tabular-nums;min-width:57px;text-align:center}.toolbar-divider{height:19px;border-left:1px solid #ffffff26;margin:0 6px}kbd{font:11px var(--roman);border:1px solid #ffffff42;padding:2px 4px;margin-left:3px;color:#c9cec4}.modal{color:var(--ink);background:var(--paper);border:0;padding:34px 38px;max-width:min(760px,calc(100vw - 32px));width:760px;max-height:80vh;box-shadow:0 24px 100px #0008}.modal::backdrop{background:#101510c9;backdrop-filter:blur(5px)}.modal-heading{display:flex;align-items:center;justify-content:space-between;gap:24px}.modal h2{font-size:30px;letter-spacing:-.7px}.close-dialog{font-size:31px;width:44px;height:44px;border:1px solid #191b1a44;background:transparent;color:var(--ink);flex:none}.modal-hint{font-size:14px;color:#555951;line-height:1.7;margin:14px 0 24px}.modal kbd{color:var(--ink);border-color:#191b1a44;font-size:12px;line-height:2;display:inline-block}.shortcut-list{margin:0}.shortcut-list>div{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;border-top:1px solid #191b1a26;padding:13px 0;align-items:center}.shortcut-list dt{font-size:14px}.shortcut-list dd{margin:0;font-size:14px;line-height:1.5}#outline-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}#outline-list button{width:100%;height:100%;min-height:66px;display:flex;gap:16px;text-align:left;padding:16px;border:1px solid #191b1a33;background:transparent;color:var(--ink);font-size:15px;line-height:1.45}#outline-list button[aria-current="page"]{background:var(--blue);border-color:var(--blue);color:var(--paper)}.outline-number{font-family:var(--roman);opacity:.65;flex:none}.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.5;padding:12px 20px;box-shadow:0 4px 25px #0005;max-width:80vw;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}.toast.visible{opacity:1}
+/* Presenter is a second window. It shares only slide position with its opener. */
+body.is-presenter{overflow:auto;background:#151915}.is-presenter #toolbar{display:none}.presenter-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:25px 32px;border-bottom:1px solid #ffffff22}.presenter-label{font-size:12px;color:var(--lime);letter-spacing:1px}.presenter-header h1{font-size:22px;margin-top:7px}.presenter-header #connection-status{font-size:12px;color:#b7beb3;max-width:230px;line-height:1.5}.presenter-workspace{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,1fr);gap:28px;padding:28px 32px}.presenter-left{min-width:0}#preview-slot{position:relative;width:100%;aspect-ratio:16/9;background:#0b0e0b}.is-presenter #viewport{position:absolute;inset:0;width:100%;height:100%}.presenter-navigation{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:10px}.presenter-navigation button,.timer-block button{background:#ffffff0b;border:1px solid #ffffff35;color:var(--paper);font-size:14px;padding:11px 16px}.presenter-navigation button:hover:not(:disabled),.timer-block button:hover{background:#ffffff18}#presenter-count{font:14px var(--roman);color:#b7beb3}.next-preview{border-top:1px solid #ffffff26;margin-top:28px;padding-top:20px}.next-preview span{display:block;font-size:12px;color:#b7beb3;letter-spacing:1px;margin-bottom:10px}.next-preview strong{font-size:24px;line-height:1.5;white-space:pre-line}.presenter-notes{min-width:0}.timer-block{border-bottom:1px solid #ffffff26;padding-bottom:23px}.timer-block>span{font-size:12px;display:block;color:#b7beb3}.timer-block>strong{display:block;font:500 62px/1.25 var(--roman);letter-spacing:-2px;font-variant-numeric:tabular-nums;margin:8px 0 15px}.timer-block button+button{margin-left:8px}#slide-timing{font-size:13px;color:#b7beb3;margin-top:14px}.notes-block{padding-top:24px}.notes-block h2{font-size:14px;color:var(--lime);margin-bottom:15px}.notes-block p{font-size:18px;line-height:1.8;white-space:pre-line;color:#e5e9df;overflow-wrap:anywhere}
+@keyframes slide-enter{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}@keyframes slide-enter-back{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}@keyframes art-enter{from{opacity:0;transform:translateY(18px) rotate(-7deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+@media(max-width:600px){#toolbar{gap:0;padding:5px;max-width:calc(100vw - 12px)}#toolbar button{font-size:12px;padding:8px}#toolbar kbd,.toolbar-divider{display:none}#page-count{min-width:45px;font-size:12px}.modal{padding:23px}.modal h2{font-size:23px}#outline-list{grid-template-columns:1fr}.shortcut-list>div{grid-template-columns:1fr;gap:5px}.presenter-header{padding:20px;align-items:flex-start}.presenter-header h1{font-size:18px}.presenter-workspace{grid-template-columns:1fr;padding:20px}.presenter-header #connection-status{max-width:120px}.notes-block p{font-size:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@page{size:1600px 900px;margin:0}
+@media print{html,body{width:1600px;height:auto;overflow:visible;background:white}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}#viewport{position:static;display:block;overflow:visible}#stage{width:1600px;height:auto;transform:none!important;overflow:visible}.slide{position:relative;width:1600px;height:900px;visibility:visible!important;opacity:1!important;display:block!important;break-after:page;page-break-after:always;animation:none!important;transform:none!important;pointer-events:auto}.slide:last-child{break-after:auto;page-break-after:auto}#toolbar,.modal,.toast,#presenter{display:none!important}.slide-header,.slide-footer{position:absolute}.is-presenter #viewport{position:static}.is-presenter #presenter{display:none!important}}
+/* Automation can set document.body.dataset.export = 'true' before capturing #stage. */
+body[data-export="true"] #toolbar,body[data-export="true"] .modal,body[data-export="true"] .toast,body[data-export="true"] #presenter{display:none!important}body[data-export="true"] *,body[data-export="true"] *:before,body[data-export="true"] *:after{animation:none!important;transition:none!important}
+</style>
+</head>
+<body>
+  <main id="viewport" aria-label="演示文稿">
+    <div id="stage" role="region" aria-roledescription="幻灯片演示" aria-label="演示页面"></div>
+  </main>
+  <nav id="toolbar" aria-label="演示控制">
+    <button id="previous" type="button" aria-label="上一页，左方向键">←</button>
+    <span id="page-count" aria-live="polite" aria-atomic="true">1 / 1</span>
+    <button id="next" type="button" aria-label="下一页，右方向键">→</button>
+    <span class="toolbar-divider" aria-hidden="true"></span>
+    <button id="outline-button" type="button" title="目录 · O">目录 <kbd>O</kbd></button>
+    <button id="presenter-button" type="button" title="讲者模式 · P">讲者 <kbd>P</kbd></button>
+    <button id="fullscreen-button" type="button" title="全屏 · F">全屏 <kbd>F</kbd></button>
+    <button id="print-button" type="button" title="打印全部页面或另存为 PDF">PDF</button>
+    <button id="help-button" type="button" aria-label="快捷键帮助，问号">?</button>
+  </nav>
+  <dialog id="outline-dialog" class="modal" aria-labelledby="outline-title">
+    <div class="modal-heading"><h2 id="outline-title">跳到任意一页</h2><button type="button" class="close-dialog" aria-label="关闭目录">×</button></div>
+    <p class="modal-hint">点击页面标题即可跳转。按 Esc 返回演示。</p>
+    <ol id="outline-list"></ol>
+  </dialog>
+  <dialog id="help-dialog" class="modal" aria-labelledby="help-title">
+    <div class="modal-heading"><h2 id="help-title">把舞台交给内容。</h2><button type="button" class="close-dialog" aria-label="关闭帮助">×</button></div>
+    <p class="modal-hint">键盘、鼠标和触摸都可以控制。离线打开也能演示。</p>
+    <dl class="shortcut-list">
+      <div><dt><kbd>→</kbd> <kbd>↓</kbd> <kbd>Space</kbd> <kbd>Page Down</kbd></dt><dd>下一页</dd></div>
+      <div><dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>Page Up</kbd></dt><dd>上一页</dd></div>
+      <div><dt><kbd>Home</kbd> / <kbd>End</kbd></dt><dd>第一页 / 最后一页</dd></div>
+      <div><dt><kbd>F</kbd></dt><dd>进入或退出全屏</dd></div>
+      <div><dt><kbd>O</kbd></dt><dd>打开目录</dd></div>
+      <div><dt><kbd>P</kbd></dt><dd>打开讲者窗口：备注、计时、下一页</dd></div>
+      <div><dt><kbd>?</kbd> / <kbd>Esc</kbd></dt><dd>打开帮助 / 关闭弹层</dd></div>
+      <div><dt>触摸左右滑动</dt><dd>翻页</dd></div>
+    </dl>
+    <p class="modal-hint">导出 PDF：选择横向、无边距、背景图形。讲者窗口仅显示在你的屏幕上；投影时选择演示窗口。</p>
+  </dialog>
+  <main id="presenter" hidden>
+    <header class="presenter-header"><div><span class="presenter-label">小苋演示 / 讲者模式</span><h1 id="presenter-title"></h1></div><span id="connection-status" role="status">正在连接演示窗口…</span></header>
+    <div class="presenter-workspace">
+      <div class="presenter-left"><div id="preview-slot"></div><div class="presenter-navigation"><button id="presenter-previous" type="button">← 上一页</button><span id="presenter-count"></span><button id="presenter-next" type="button">下一页 →</button></div><div class="next-preview"><span>接下来</span><strong id="next-title"></strong></div></div>
+      <aside class="presenter-notes"><div class="timer-block"><span>总用时</span><strong id="elapsed">00:00</strong><div><button id="timer-toggle" type="button">开始计时</button><button id="timer-reset" type="button">归零</button></div><p id="slide-timing"></p></div><div class="notes-block"><h2>本页备注</h2><p id="speaker-notes"></p></div></aside>
+    </div>
+  </main>
+  <div id="status" class="toast" role="status" aria-live="polite"></div>
+  <script type="application/json" id="deck-data">{"title":"把一个想法，讲清楚","subtitle":"小苋演示 · 公开示例","author":"小苋演示 · 示例工作坊","slides":[{"layout":"cover","theme":"paper","kicker":"一个 8 分钟的表达练习","title":"把一个想法，\n讲清楚。","body":"让听众听得懂、记得住，\n并且知道接下来可以做什么。","notes":"欢迎大家。这是一份公开示例，展示小苋演示的排版、翻页和讲者模式。\n今天只练一件事：把脑子里的一个想法，讲成别人愿意听下去的话。","seconds":35},{"layout":"statement","theme":"blue","kicker":"先确定一个目标","title":"听完之后，\n你希望发生什么？","body":"一个清楚的变化，胜过十个并列的重点。","notes":"开始做幻灯片之前，先把这句话补完整：听完之后，我希望你能够……\n可以是理解一个概念，也可以是尝试一个动作。目标越具体，内容越容易取舍。","seconds":40},{"layout":"split","theme":"paper","kicker":"从听众的起点出发","title":"把话说给\n眼前的人。","body":"同一个想法，面对不同的人，\n需要不同的入口。","items":[{"title":"面对第一次接触的人","body":"先讲问题，再解释术语。\n用一个熟悉的生活场景开场。"},{"title":"面对已经了解的人","body":"直接说变化、证据和选择。\n把时间留给值得讨论的地方。"}],"notes":"假设我们要介绍一个自动整理笔记的工具。新手关心它解决什么麻烦；有经验的人可能更关心它与现有流程相比有什么变化。\n不要从自己最想展示的功能讲起，从听众正在面对的问题讲起。","seconds":45},{"layout":"cards","theme":"paper","kicker":"让内容有一个骨架","title":"一段清楚的表达，三件事。","body":"先让人产生兴趣，再让人相信，最后给出行动。","items":[{"title":"问题","body":"现在遇到了什么？\n为什么值得花时间？"},{"title":"证据","body":"发生了什么变化？\n有什么具体例子？"},{"title":"行动","body":"接下来可以做什么？\n从哪一步开始？"}],"notes":"这是一个可复用的骨架，不是必须套用的公式。\n三张卡片里，每一张都要让听众少一个疑问。例子不必宏大，真实具体就有力量。","seconds":45},{"layout":"steps","theme":"lime","kicker":"从一段话开始，而不是从模板开始","title":"把想法，整理成三个动作。","items":[{"title":"写一句话","body":"这一场分享，\n最想让人带走什么？"},{"title":"选一个例子","body":"用一个具体情境，\n让听众看见你的意思。"},{"title":"删掉一半","body":"去掉重复解释，\n把细节放进讲者备注。"}],"notes":"可以让大家现场写一句话，限时 30 秒。\n如果这句话很难写，往往说明内容还没有取舍完。先把目标写清楚，再开始拆页面。","seconds":50},{"layout":"timeline","theme":"paper","kicker":"8 分钟，也可以有完整的节奏","title":"给每一段内容，留出位置。","body":"时间只是示意。根据现场反馈调整，比机械照读更重要。","items":[{"title":"1 分钟","body":"一个熟悉的问题，\n让大家进入情境。"},{"title":"3 分钟","body":"一个具体的例子，\n把变化讲透。"},{"title":"2 分钟","body":"一个可复用的方法，\n带着大家走一遍。"},{"title":"2 分钟","body":"一次小练习，\n让想法变成行动。"}],"notes":"这张时间线演示如何分配结构。内容并不是越均匀越好，需要讲透的例子可以多留一点时间。\n讲者窗口会显示本页建议时间，帮助你掌握节奏。","seconds":40},{"layout":"quote","theme":"ink","kicker":"把这句话留给自己","title":"一页，只承担\n一个值得记住的想法。","body":"小苋演示 · 排版原则","notes":"这是一条排版原则，不是名人引用。\n一页承担一个想法，讲者就可以把重点讲深。页面上的文字负责提示，备注里的文字负责帮助你讲述。","seconds":35},{"layout":"split","theme":"coral","kicker":"把抽象的话，变成看得见的变化","title":"少一点形容，\n多一个例子。","body":"听众能想象具体情境，\n就更容易理解你。","items":[{"title":"“这个方法很高效”","body":"听众还不知道：\n到底在哪一步变得更轻松？"},{"title":"“三页素材，整理成一句话”","body":"起点和终点都能看见。\n再讲过程，听众就跟得上。"}],"notes":"比较两种表达。前一种只有判断；后一种给了一个可以想象的变化。\n使用真实案例时，请保留必要的条件，不要把单个例子的效果当作普遍承诺。","seconds":40},{"layout":"cards","theme":"paper","kicker":"演示前，再看一遍","title":"清楚，也是一种设计。","items":[{"title":"重点够大","body":"坐在最后一排，\n也能找到这一页的主角。"},{"title":"文字够少","body":"先看懂，再听你讲。\n长解释放进备注。"},{"title":"对比够清楚","body":"用位置、大小和色彩，\n区分主次关系。"},{"title":"节奏有变化","body":"观点、例子和方法交替，\n给听众一点呼吸。"}],"notes":"设计的目的，是帮助理解。检查时先看重点是否清楚，再看装饰是否必要。\n这套模板使用纸色、蓝色、荧光黄、黑色和珊瑚色，用少量颜色构建节奏。","seconds":40},{"layout":"statement","theme":"blue","kicker":"现在，轮到你","title":"用 30 秒，\n讲清楚一个想法。","body":"选一个你熟悉的问题。\n说出你的观点，给出一个例子，留下一个动作。","notes":"邀请大家任选一个熟悉的话题，用 30 秒说给旁边的人听。\n听的人只回答一个问题：你记住的那句话是什么？这比“讲得不错”更有帮助。","seconds":40},{"layout":"end","theme":"paper","kicker":"从今天的下一次表达开始","title":"让好想法，\n被听见。","body":"写下一句话，选一个例子。\n你的第一份演示，就从这里开始。","notes":"谢谢大家。\n你可以按 O 浏览目录，按 ? 查看快捷键，按 P 打开讲者窗口。\n拿到这份开源项目后，把示例内容换成你的内容，就可以生成自己的演示。","seconds":30}]}</script>
+  <script>/* 小苋演示 — no network, no dependencies, no executable slide content. */
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage');
+  const viewport = $('viewport');
+  const layouts = new Set(['cover', 'statement', 'split', 'cards', 'steps', 'timeline', 'quote', 'end']);
+  const themes = new Set(['paper', 'blue', 'ink', 'lime', 'coral']);
+  let deck;
+  try {
+    deck = JSON.parse($('deck-data').textContent);
+    if (!deck || !Array.isArray(deck.slides) || !deck.slides.length) throw new Error('Missing slides');
+  } catch (error) {
+    stage.style.cssText = 'padding:80px;color:#191b1a;font-size:40px';
+    stage.textContent = '演示数据无法读取。请重新运行构建命令生成 HTML。';
+    $('toolbar').hidden = true;
+    return;
+  }
+  const string = (value) => typeof value === 'string' ? value : '';
+  const slides = deck.slides;
+  let index = 0;
+  let ready = false;
+  let presenterWindow = null;
+  let lastFocus = null;
+  let toastTimeout;
+  let totalElapsed = 0;
+  let slideElapsed = 0;
+  let timerRunning = false;
+  let lastTick = performance.now();
+  const params = new URLSearchParams(location.search);
+  const isPresenter = params.get('presenter') === '1';
+  const randomId = () => globalThis.crypto && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const requestedInstance = params.get('instance');
+  const hasInstance = typeof requestedInstance === 'string' && /^[a-zA-Z0-9-]{8,100}$/.test(requestedInstance);
+  const instance = isPresenter && hasInstance ? requestedInstance : randomId();
+  const senderId = randomId();
+  const senderRole = isPresenter ? 'presenter' : 'main';
+  let messageSequence = 0;
+  let syncChannel = null;
+  let storageAvailable = false;
+  const seenPackets = new Set();
+  const hashText = JSON.stringify(deck);
+  let hash = 2166136261;
+  for (let n = 0; n < hashText.length; n += 1) hash = Math.imul(hash ^ hashText.charCodeAt(n), 16777619);
+  const identity = `xiaoxian-${(hash >>> 0).toString(16)}-${hashText.length}`;
+  // file: reports file:// in location.origin, but messages can arrive with origin null.
+  // A file target must use '*'; source, deck fingerprint and per-window instance still bind it.
+  const opaqueOrigin = location.protocol === 'file:' || location.origin === 'null';
+  const messageOrigin = opaqueOrigin ? '*' : location.origin;
+  const syncName = `xiaoxian-slides:${identity}:${instance}`;
+  const storageKey = (role) => `${syncName}:${role}`;
+  const node = (tag, className, value) => {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (value !== undefined) element.textContent = string(value);
+    return element;
+  };
+  const appendText = (parent, tag, className, value) => {
+    if (!string(value)) return null;
+    const element = node(tag, className, value);
+    parent.append(element);
+    return element;
+  };
+  const geometric = () => {
+    const art = node('div', 'geometric-art');
+    art.setAttribute('aria-hidden', 'true');
+    ['art-disc', 'art-orbit', 'art-cross'].forEach((name) => art.append(node('div', name)));
+    art.append(node('div', 'art-arrow', '↗'));
+    return art;
+  };
+  const imageNode = (slide, className) => {
+    // build.mjs embeds validated local raster images. No remote URL is requested here.
+    if (!/^data:image\/(?:png|jpeg|webp|gif);base64,[a-z0-9+/=\s]+$/i.test(string(slide.image))) return null;
+    const img = node('img', className);
+    img.src = slide.image;
+    img.alt = string(slide.imageAlt);
+    img.draggable = false;
+    return img;
+  };
+  const makeItems = (items, containerClass, itemClass, max) => {
+    const cleanItems = Array.isArray(items) ? items.slice(0, max) : [];
+    const group = node('div', containerClass);
+    group.style.setProperty('--items', String(Math.max(cleanItems.length, 1)));
+    group.dataset.count = String(cleanItems.length);
+    cleanItems.forEach((item, itemIndex) => {
+      const itemNode = node('div', itemClass);
+      itemNode.style.setProperty('--item-index', String(itemIndex));
+      itemNode.append(node('span', 'item-number', String(itemIndex + 1).padStart(2, '0')));
+      appendText(itemNode, 'h3', '', item.title);
+      appendText(itemNode, 'p', '', item.body);
+      group.append(itemNode);
+    });
+    return group;
+  };
+  slides.forEach((slide, slideIndex) => {
+    const layout = layouts.has(slide.layout) ? slide.layout : 'statement';
+    const theme = themes.has(slide.theme) ? slide.theme : 'paper';
+    const section = node('section', `slide layout-${layout} theme-${theme}`);
+    section.id = `slide-${slideIndex + 1}`;
+    section.setAttribute('aria-roledescription', '幻灯片');
+    section.setAttribute('aria-label', `${slideIndex + 1} / ${slides.length}，${string(slide.title).replace(/\n/g, ' ')}`);
+    section.setAttribute('aria-hidden', 'true');
+    section.inert = true;
+    const header = node('header', 'slide-header');
+    const chapter = node('div', 'chapter');
+    chapter.append(node('span', 'chapter-label', string(deck.title)));
+    header.append(chapter, node('span', 'slide-brand', '小苋演示'));
+    const content = node('div', 'content');
+    const titleBlock = node('div', 'layout-title');
+    const title = node(layout === 'cover' ? 'h1' : 'h2', '', string(slide.title));
+    const addKicker = (parent) => appendText(parent, 'p', 'kicker', slide.kicker);
+    const addBody = (parent) => appendText(parent, 'p', 'body', slide.body);
+    if (layout === 'cover') {
+      titleBlock.classList.add('cover-copy');
+      addKicker(titleBlock); titleBlock.append(title); addBody(titleBlock);
+      content.append(titleBlock);
+      const img = imageNode(slide, '');
+      if (img) { const frame = node('figure', 'cover-image'); frame.append(img); content.append(frame); }
+      else content.append(geometric());
+    } else if (layout === 'statement') {
+      addKicker(content); content.append(title); addBody(content);
+      content.append(node('div', 'statement-mark', String(slideIndex + 1).padStart(2, '0')));
+      content.lastChild.setAttribute('aria-hidden', 'true');
+    } else if (layout === 'split') {
+      addKicker(titleBlock); titleBlock.append(title); addBody(titleBlock);
+      content.append(titleBlock);
+      const visual = node('div', 'split-visual');
+      const img = imageNode(slide, 'split-image');
+      if (img) visual.append(img);
+      else if (Array.isArray(slide.items) && slide.items.length) {
+        const items = makeItems(slide.items, 'split-items', 'split-item', 2);
+        while (items.firstChild) visual.append(items.firstChild);
+      } else visual.append(geometric());
+      content.append(visual);
+    } else if (['cards', 'steps', 'timeline'].includes(layout)) {
+      addKicker(titleBlock); title.classList.add('page-heading'); titleBlock.append(title);
+      appendText(titleBlock, 'p', 'page-description', slide.body);
+      content.append(titleBlock);
+      const classNames = {cards: ['cards-grid', 'card', 4], steps: ['steps-grid', 'step', 5], timeline: ['timeline-grid', 'milestone', 5]};
+      const [groupClass, itemClass, maxItems] = classNames[layout];
+      content.append(makeItems(slide.items, groupClass, itemClass, maxItems));
+    } else if (layout === 'quote') {
+      addKicker(content);
+      const mark = node('div', 'quote-mark', '“'); mark.setAttribute('aria-hidden', 'true');
+      const quote = node('blockquote', ''); quote.append(title);
+      content.append(mark, quote); addBody(content);
+    } else {
+      addKicker(content); content.append(title); addBody(content);
+      const line = node('div', 'end-line'); line.setAttribute('aria-hidden', 'true'); content.append(line);
+    }
+    const footer = node('footer', 'slide-footer');
+    const progress = node('div', 'progress-track');
+    progress.setAttribute('aria-hidden', 'true');
+    const fill = node('i', 'progress-fill'); fill.style.width = `${((slideIndex + 1) / slides.length) * 100}%`; progress.append(fill);
+    footer.append(progress, node('span', 'slide-author', string(deck.author) || string(deck.subtitle) || '让每一页，都有一个值得记住的想法。'), node('span', 'slide-number', `${String(slideIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`));
+    section.append(header, content, footer); stage.append(section);
+    const li = node('li'); const button = node('button'); button.type = 'button';
+    button.append(node('span', 'outline-number', String(slideIndex + 1).padStart(2, '0')), node('span', '', string(slide.title).replace(/\n/g, ' ')));
+    button.addEventListener('click', () => { go(slideIndex); closeDialog($('outline-dialog')); });
+    li.append(button); $('outline-list').append(li);
+  });
+  const sections = Array.from(stage.children);
+  const outlineButtons = Array.from($('outline-list').querySelectorAll('button'));
+  const notify = (message) => {
+    $('status').textContent = message;
+    $('status').classList.add('visible');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => $('status').classList.remove('visible'), 4000);
+  };
+  const post = (target, type, extra = {}) => {
+    const packet = {app:'xiaoxian-slides', deck:identity, instance, sender:senderRole,
+      packet:`${senderId}:${++messageSequence}`, timestamp:Date.now(), type, ...extra};
+    // The transports carry only position and random identifiers, never notes or file paths.
+    try { if (target && !target.closed) target.postMessage(packet, messageOrigin); } catch (error) { /* fallback below */ }
+    try { if (syncChannel) syncChannel.postMessage(packet); } catch (error) { /* storage can recover */ }
+    if (storageAvailable) {
+      try { localStorage.setItem(storageKey(senderRole), JSON.stringify(packet)); }
+      catch (error) { storageAvailable = false; }
+    }
+  };
+  const timeText = (milliseconds) => {
+    const seconds = Math.floor(milliseconds / 1000);
+    return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+  };
+  const refreshPresenter = () => {
+    if (!isPresenter) return;
+    $('presenter-count').textContent = `${index + 1} / ${slides.length}`;
+    $('presenter-previous').disabled = index === 0;
+    $('presenter-next').disabled = index === slides.length - 1;
+    $('speaker-notes').textContent = string(slides[index].notes) || '这一页没有讲者备注。';
+    $('next-title').textContent = slides[index + 1] ? string(slides[index + 1].title) : '已是最后一页。留一点时间给交流。';
+    const seconds = Number(slides[index].seconds);
+    $('slide-timing').textContent = `本页 ${timeText(slideElapsed)}${Number.isFinite(seconds) && seconds > 0 ? ` / 建议 ${timeText(seconds * 1000)}` : ''}`;
+    $('elapsed').textContent = timeText(totalElapsed);
+  };
+  function go(value, options = {}) {
+    const requested = Number(value);
+    if (!Number.isFinite(requested)) return index;
+    const target = Math.max(0, Math.min(slides.length - 1, Math.trunc(requested)));
+    const changed = target !== index;
+    const direction = target < index ? 'back' : 'forward';
+    sections.forEach((section, n) => {
+      const active = n === target;
+      section.classList.toggle('active', active);
+      section.dataset.direction = direction;
+      section.setAttribute('aria-hidden', String(!active));
+      section.inert = !active;
+      if (active) outlineButtons[n].setAttribute('aria-current', 'page');
+      else outlineButtons[n].removeAttribute('aria-current');
+    });
+    index = target;
+    if (changed) slideElapsed = 0;
+    $('page-count').textContent = `${index + 1} / ${slides.length}`;
+    $('previous').disabled = index === 0;
+    $('next').disabled = index === slides.length - 1;
+    if (location.hash !== `#slide-${index + 1}`) {
+      // replaceState can be blocked for file: pages in some browsers. The hash fallback is safe.
+      try { history.replaceState(null, '', `#slide-${index + 1}`); }
+      catch (error) { location.hash = `slide-${index + 1}`; }
+    }
+    refreshPresenter();
+    if (options.broadcast !== false) {
+      if (isPresenter) post(window.opener, 'navigate', {index});
+      else post(presenterWindow, 'state', {index});
+    }
+    return index;
+  }
+  const resize = () => {
+    const bounds = viewport.getBoundingClientRect();
+    const inset = isPresenter ? 0 : 14;
+    const scale = Math.max(.01, Math.min((bounds.width - inset) / 1600, (bounds.height - inset) / 900));
+    stage.style.transform = `scale(${scale})`;
+  };
+  const fitText = () => {
+    // CJK glyph ink can extend beyond its line box. Only shrink against an explicit
+    // max-height, with a glyph allowance; never compare natural text to its own height.
+    // Preserve a minimum readable size. Authors should split pages that still overflow.
+    stage.querySelectorAll('h1,h2,h3').forEach((element) => {
+      const computed = getComputedStyle(element);
+      const initial = parseFloat(computed.fontSize);
+      const heightLimit = parseFloat(computed.maxHeight);
+      const minimum = element.tagName === 'H3' ? 27 : 58;
+      let size = initial;
+      while (size > minimum && (element.scrollWidth > element.clientWidth + 2 || (Number.isFinite(heightLimit) && element.scrollHeight > heightLimit + 20))) {
+        size -= 2;
+        element.style.fontSize = `${size}px`;
+      }
+    });
+  };
+  function closeDialog(dialog) {
+    if (!dialog.open) return;
+    dialog.close();
+    if (lastFocus && lastFocus.isConnected) lastFocus.focus();
+  }
+  const openDialog = (dialog) => {
+    if (isPresenter || dialog.open) return;
+    lastFocus = document.activeElement;
+    dialog.showModal();
+    const activeButton = dialog.id === 'outline-dialog' ? outlineButtons[index] : dialog.querySelector('button');
+    if (activeButton) activeButton.focus();
+  };
+  document.querySelectorAll('dialog').forEach((dialog) => {
+    dialog.querySelector('.close-dialog').addEventListener('click', () => closeDialog(dialog));
+    // Restore focus synchronously. A queued close event must not steal focus
+    // from a later dialog or a control the user has already selected.
+    dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(dialog); });
+    dialog.addEventListener('click', (event) => {
+      if (event.target !== dialog) return;
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) closeDialog(dialog);
+    });
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+      const focusable = Array.from(dialog.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')).filter((el) => !el.disabled);
+      const first = focusable[0]; const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+  });
+  const fullscreen = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+      else notify('当前浏览器不支持页面全屏，可使用浏览器菜单进入全屏。');
+    } catch (error) { notify('未能进入全屏，可使用浏览器菜单进入全屏。'); }
+  };
+  const openPresenter = () => {
+    if (isPresenter) return;
+    if (presenterWindow && !presenterWindow.closed) { presenterWindow.focus(); return; }
+    const url = new URL(location.href);
+    url.searchParams.set('presenter', '1'); url.searchParams.set('instance', instance); url.hash = `slide-${index + 1}`;
+    presenterWindow = window.open(url.href, `xiaoxian-presenter-${instance}`, 'popup,width=1280,height=850');
+    if (!presenterWindow) notify('讲者窗口被浏览器拦截。请允许此文件打开弹出窗口，然后再按 P。');
+    else post(presenterWindow, 'state', {index});
+  };
+  $('previous').addEventListener('click', () => go(index - 1));
+  $('next').addEventListener('click', () => go(index + 1));
+  $('outline-button').addEventListener('click', () => openDialog($('outline-dialog')));
+  $('help-button').addEventListener('click', () => openDialog($('help-dialog')));
+  $('fullscreen-button').addEventListener('click', fullscreen);
+  $('presenter-button').addEventListener('click', openPresenter);
+  $('print-button').addEventListener('click', () => window.print());
+  document.addEventListener('keydown', (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
+    const openModal = document.querySelector('dialog[open]');
+    if (openModal) {
+      if (openModal.id === 'outline-dialog' && event.key.toLowerCase() === 'o') { event.preventDefault(); closeDialog(openModal); }
+      return;
+    }
+    const target = event.target instanceof Element ? event.target : null;
+    if (target && target.closest('input,textarea,select,[contenteditable="true"]')) return;
+    if ([' ', 'Enter'].includes(event.key) && target && target.closest('button,a')) return;
+    let action;
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(event.key)) action = () => go(index + 1);
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) action = () => go(index - 1);
+    else if (event.key === 'Home') action = () => go(0);
+    else if (event.key === 'End') action = () => go(slides.length - 1);
+    else if (event.key.toLowerCase() === 'f') action = fullscreen;
+    else if (event.key.toLowerCase() === 'o') action = () => openDialog($('outline-dialog'));
+    else if (event.key.toLowerCase() === 'p') action = openPresenter;
+    else if (event.key === '?') action = () => openDialog($('help-dialog'));
+    if (action) { event.preventDefault(); action(); }
+  });
+  let touchStart = null;
+  viewport.addEventListener('touchstart', (event) => {
+    if (event.touches.length !== 1) { touchStart = null; return; }
+    touchStart = {x:event.touches[0].clientX, y:event.touches[0].clientY};
+  }, {passive:true});
+  viewport.addEventListener('touchend', (event) => {
+    if (!touchStart || !event.changedTouches.length || document.querySelector('dialog[open]')) return;
+    const dx = event.changedTouches[0].clientX - touchStart.x;
+    const dy = event.changedTouches[0].clientY - touchStart.y;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) go(index + (dx < 0 ? 1 : -1));
+    touchStart = null;
+  }, {passive:true});
+  viewport.addEventListener('touchcancel', () => { touchStart = null; }, {passive:true});
+  window.addEventListener('hashchange', () => {
+    const match = location.hash.match(/^#slide-(\d+)$/);
+    if (match) go(Number(match[1]) - 1);
+  });
+  const receivePacket = (message) => {
+    if (!message || message.app !== 'xiaoxian-slides' || message.deck !== identity || message.instance !== instance) return;
+    if (message.sender !== (isPresenter ? 'main' : 'presenter')) return;
+    if (typeof message.packet !== 'string' || !Number.isFinite(message.timestamp) || Math.abs(Date.now() - message.timestamp) > 30000) return;
+    if (seenPackets.has(message.packet)) return;
+    seenPackets.add(message.packet);
+    if (seenPackets.size > 128) seenPackets.delete(seenPackets.values().next().value);
+    if (isPresenter) {
+      if (message.type !== 'state' || !Number.isInteger(message.index)) return;
+      $('connection-status').textContent = '已连接演示窗口 · 翻页实时同步';
+      go(message.index, {broadcast:false});
+    } else {
+      if (message.type === 'ready') post(presenterWindow, 'state', {index});
+      if (message.type === 'navigate' && Number.isInteger(message.index)) go(message.index);
+    }
+  };
+  window.addEventListener('message', (event) => {
+    // postMessage always requires the exact paired Window. The independent fallbacks
+    // use an unguessable per-main-window channel, never a deck-wide shared channel.
+    if (!opaqueOrigin && event.origin !== location.origin) return;
+    if (isPresenter ? !window.opener || event.source !== window.opener : !presenterWindow || event.source !== presenterWindow) return;
+    receivePacket(event.data);
+  });
+  if (!isPresenter || hasInstance) {
+    try {
+      syncChannel = new BroadcastChannel(syncName);
+      syncChannel.addEventListener('message', (event) => receivePacket(event.data));
+    } catch (error) { /* Some file: browsers do not allow BroadcastChannel. */ }
+    try {
+      const probe = `${syncName}:probe`;
+      localStorage.setItem(probe, '1'); localStorage.removeItem(probe);
+      storageAvailable = true;
+    } catch (error) { /* Storage may be disabled in private browsing. */ }
+    const readStoredPacket = () => {
+      if (!storageAvailable) return;
+      try {
+        const value = localStorage.getItem(storageKey(isPresenter ? 'main' : 'presenter'));
+        if (value) receivePacket(JSON.parse(value));
+      } catch (error) { /* A blocked or invalid storage entry must not stop playback. */ }
+    };
+    window.addEventListener('storage', (event) => {
+      if (event.key === storageKey(isPresenter ? 'main' : 'presenter')) readStoredPacket();
+    });
+    // Some browsers suppress both file: message delivery and storage events.
+    // Polling the paired instance's one position record recovers without cross-talk.
+    const recoveryTimer = setInterval(readStoredPacket, 400);
+    window.addEventListener('pagehide', () => {
+      clearInterval(recoveryTimer);
+      if (syncChannel) syncChannel.close();
+      if (storageAvailable) {
+        try { localStorage.removeItem(storageKey(senderRole)); } catch (error) { /* best effort */ }
+      }
+    }, {once:true});
+  }
+  if (isPresenter) {
+    document.body.classList.add('is-presenter');
+    $('presenter').hidden = false;
+    $('presenter-title').textContent = string(deck.title);
+    $('preview-slot').append(viewport);
+    document.title = `讲者 · ${string(deck.title)}`;
+    $('presenter-previous').addEventListener('click', () => go(index - 1));
+    $('presenter-next').addEventListener('click', () => go(index + 1));
+    $('timer-toggle').addEventListener('click', () => {
+      timerRunning = !timerRunning; lastTick = performance.now();
+      $('timer-toggle').textContent = timerRunning ? '暂停计时' : '继续计时';
+    });
+    $('timer-reset').addEventListener('click', () => { totalElapsed = 0; slideElapsed = 0; lastTick = performance.now(); refreshPresenter(); });
+    setInterval(() => {
+      const now = performance.now();
+      if (timerRunning) { totalElapsed += now - lastTick; slideElapsed += now - lastTick; }
+      lastTick = now; refreshPresenter();
+    }, 250);
+    if (window.opener) post(window.opener, 'ready');
+    else $('connection-status').textContent = '独立预览 · 请从演示窗口按 P 打开以同步';
+  }
+  window.addEventListener('resize', resize);
+  document.addEventListener('fullscreenchange', () => {
+    $('fullscreen-button').textContent = document.fullscreenElement ? '退出全屏' : '全屏 F'; resize();
+  });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(viewport);
+  const hashMatch = location.hash.match(/^#slide-(\d+)$/);
+  go(hashMatch ? Number(hashMatch[1]) - 1 : 0, {broadcast:false});
+  resize();
+  window.xiaoxian = Object.freeze({
+    go,
+    get current() { return index; },
+    get slides() { return slides; },
+    get ready() { return ready; }
+  });
+  const imageReady = Array.from(stage.querySelectorAll('img')).map((img) => {
+    if (typeof img.decode === 'function') return img.decode().catch(() => {});
+    if (img.complete) return Promise.resolve();
+    return new Promise((resolve) => { img.addEventListener('load', resolve, {once:true}); img.addEventListener('error', resolve, {once:true}); });
+  });
+  Promise.all([document.fonts ? document.fonts.ready : Promise.resolve(), ...imageReady]).then(() => {
+    fitText(); resize(); ready = true;
+    if (isPresenter && window.opener) post(window.opener, 'ready');
+  });
+})();
+</script>
+</body>
+</html>

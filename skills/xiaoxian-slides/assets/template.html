@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="generator" content="小苋演示">
+  <title>__XI_TITLE__</title>
+  <style>__XI_CSS__</style>
+</head>
+<body>
+  <main id="viewport" aria-label="演示文稿">
+    <div id="stage" role="region" aria-roledescription="幻灯片演示" aria-label="演示页面"></div>
+  </main>
+  <nav id="toolbar" aria-label="演示控制">
+    <button id="previous" type="button" aria-label="上一页，左方向键">←</button>
+    <span id="page-count" aria-live="polite" aria-atomic="true">1 / 1</span>
+    <button id="next" type="button" aria-label="下一页，右方向键">→</button>
+    <span class="toolbar-divider" aria-hidden="true"></span>
+    <button id="outline-button" type="button" title="目录 · O">目录 <kbd>O</kbd></button>
+    <button id="presenter-button" type="button" title="讲者模式 · P">讲者 <kbd>P</kbd></button>
+    <button id="fullscreen-button" type="button" title="全屏 · F">全屏 <kbd>F</kbd></button>
+    <button id="print-button" type="button" title="打印全部页面或另存为 PDF">PDF</button>
+    <button id="help-button" type="button" aria-label="快捷键帮助，问号">?</button>
+  </nav>
+  <dialog id="outline-dialog" class="modal" aria-labelledby="outline-title">
+    <div class="modal-heading"><h2 id="outline-title">跳到任意一页</h2><button type="button" class="close-dialog" aria-label="关闭目录">×</button></div>
+    <p class="modal-hint">点击页面标题即可跳转。按 Esc 返回演示。</p>
+    <ol id="outline-list"></ol>
+  </dialog>
+  <dialog id="help-dialog" class="modal" aria-labelledby="help-title">
+    <div class="modal-heading"><h2 id="help-title">把舞台交给内容。</h2><button type="button" class="close-dialog" aria-label="关闭帮助">×</button></div>
+    <p class="modal-hint">键盘、鼠标和触摸都可以控制。离线打开也能演示。</p>
+    <dl class="shortcut-list">
+      <div><dt><kbd>→</kbd> <kbd>↓</kbd> <kbd>Space</kbd> <kbd>Page Down</kbd></dt><dd>下一页</dd></div>
+      <div><dt><kbd>←</kbd> <kbd>↑</kbd> <kbd>Page Up</kbd></dt><dd>上一页</dd></div>
+      <div><dt><kbd>Home</kbd> / <kbd>End</kbd></dt><dd>第一页 / 最后一页</dd></div>
+      <div><dt><kbd>F</kbd></dt><dd>进入或退出全屏</dd></div>
+      <div><dt><kbd>O</kbd></dt><dd>打开目录</dd></div>
+      <div><dt><kbd>P</kbd></dt><dd>打开讲者窗口：备注、计时、下一页</dd></div>
+      <div><dt><kbd>?</kbd> / <kbd>Esc</kbd></dt><dd>打开帮助 / 关闭弹层</dd></div>
+      <div><dt>触摸左右滑动</dt><dd>翻页</dd></div>
+    </dl>
+    <p class="modal-hint">导出 PDF：选择横向、无边距、背景图形。讲者窗口仅显示在你的屏幕上；投影时选择演示窗口。</p>
+  </dialog>
+  <main id="presenter" hidden>
+    <header class="presenter-header"><div><span class="presenter-label">小苋演示 / 讲者模式</span><h1 id="presenter-title"></h1></div><span id="connection-status" role="status">正在连接演示窗口…</span></header>
+    <div class="presenter-workspace">
+      <div class="presenter-left"><div id="preview-slot"></div><div class="presenter-navigation"><button id="presenter-previous" type="button">← 上一页</button><span id="presenter-count"></span><button id="presenter-next" type="button">下一页 →</button></div><div class="next-preview"><span>接下来</span><strong id="next-title"></strong></div></div>
+      <aside class="presenter-notes"><div class="timer-block"><span>总用时</span><strong id="elapsed">00:00</strong><div><button id="timer-toggle" type="button">开始计时</button><button id="timer-reset" type="button">归零</button></div><p id="slide-timing"></p></div><div class="notes-block"><h2>本页备注</h2><p id="speaker-notes"></p></div></aside>
+    </div>
+  </main>
+  <div id="status" class="toast" role="status" aria-live="polite"></div>
+  <script type="application/json" id="deck-data">__XI_DATA__</script>
+  <script>__XI_JS__</script>
+</body>
+</html>

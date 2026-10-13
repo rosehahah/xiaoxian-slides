@@ -1,0 +1,19 @@
+{
+  "name": "xiaoxian-slides",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "小苋演示：可离线播放的 HTML 演示 Skill 与模板",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node skills/xiaoxian-slides/scripts/build.mjs examples/demo.json -o examples/demo.html",
+    "test": "node --test tests/*.test.mjs",
+    "export": "node skills/xiaoxian-slides/scripts/export.mjs examples/demo.html --out-dir output"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "pptxgenjs": "4.0.1"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "小苋演示"
+  short_description: "把文章与素材变成有设计感、带讲者备注的离线 HTML 演示"
+  default_prompt: "使用 $xiaoxian-slides，把我的素材做成一份可以离线播放、带讲者备注的 HTML 演示。"
