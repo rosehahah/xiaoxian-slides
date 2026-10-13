@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "xiaoxian-slides",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "小苋演示：把内容变成有设计感、可离线播放的 HTML 演示，附快捷键、讲者备注与可选静态导出。"
 }

@@ -46,6 +46,26 @@ test('离线播放器：导航、焦点、讲者同步、缩放和打印', async
       }
     });
 
+    await t.test('完整利用窗口并居中，窄屏工具栏不裁切', async () => {
+      for (const [width, height] of [[1600,900], [1440,900], [1280,720], [390,844], [568,320], [320,568]]) {
+        await page.setViewportSize({ width, height });
+        await page.waitForFunction(() => {
+          const rect = document.querySelector('#stage').getBoundingClientRect();
+          const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+          return Math.abs(rect.width - 1600 * scale) < 1 && Math.abs(rect.height - 900 * scale) < 1;
+        });
+        const geometry = await page.evaluate(() => {
+          const rect = document.querySelector('#stage').getBoundingClientRect();
+          const controls = document.querySelector('#toolbar').getBoundingClientRect();
+          return { x:rect.x, y:rect.y, width:rect.width, height:rect.height, controlsLeft:controls.left, controlsRight:controls.right, controlsTop:controls.top };
+        });
+        assert.ok(Math.abs(geometry.x - (width - geometry.width) / 2) < 1);
+        assert.ok(Math.abs(geometry.y - (height - geometry.height) / 2) < 1);
+        assert.ok(geometry.controlsLeft >= -1 && geometry.controlsRight <= width + 1 && geometry.controlsTop >= 0);
+      }
+      await page.setViewportSize({ width:1600, height:1000 });
+    });
+
     await t.test('快捷键有边界，目录和帮助关闭后归还焦点', async () => {
       await page.keyboard.press('Home');
       assert.equal(await page.evaluate(() => window.xiaoxian.current), 0);
@@ -84,18 +104,51 @@ test('离线播放器：导航、焦点、讲者同步、缩放和打印', async
       await page.emulateMedia({ reducedMotion: 'no-preference' });
     });
 
-    await t.test('全屏可进入退出，触摸滑动可翻页', async () => {
-      await page.keyboard.press('f');
+    await t.test('全屏仅幻灯片，点击后空格翻页且鼠标触摸不唤醒底栏', async () => {
+      await page.locator('#fullscreen-button').click();
       await page.waitForFunction(() => Boolean(document.fullscreenElement));
+      await page.waitForFunction(() => document.querySelector('#toolbar').inert);
+      assert.equal(await page.locator('#toolbar').evaluate(el => getComputedStyle(el).display), 'none');
+      assert.equal(await page.locator('#status').evaluate(el => getComputedStyle(el).display), 'none');
+      assert.equal(await page.evaluate(() => document.activeElement.id), 'viewport');
+      await page.keyboard.press('Space');
+      assert.equal(await page.evaluate(() => window.xiaoxian.current), 4);
+      await page.keyboard.press('ArrowLeft');
+      await page.mouse.move(400, 400);
+      await page.keyboard.press('Tab');
+      assert.equal(await page.locator('#toolbar').evaluate(el => getComputedStyle(el).display), 'none');
+      assert.equal(await page.evaluate(() => document.activeElement.closest('#toolbar') === null), true);
+      await page.keyboard.press('?');
+      await page.keyboard.press('Escape');
+      assert.equal(await page.evaluate(() => document.activeElement.closest('#toolbar') === null), true);
       await page.keyboard.press('f');
       await page.waitForFunction(() => !document.fullscreenElement);
+      await page.waitForFunction(() => !document.querySelector('#toolbar').inert);
+      assert.notEqual(await page.locator('#toolbar').evaluate(el => getComputedStyle(el).display), 'none');
+      await page.keyboard.press('f');
+      await page.waitForFunction(() => !!document.fullscreenElement);
       const cdp = await context.newCDPSession(page);
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 1000, y: 400 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 650, y: 400 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
       await page.waitForFunction(() => window.xiaoxian.current === 4);
+      assert.equal(await page.locator('#toolbar').evaluate(el => getComputedStyle(el).display), 'none');
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(() => !document.fullscreenElement);
+      await page.waitForFunction(() => !document.querySelector('#toolbar').inert);
       await page.evaluate(() => window.xiaoxian.go(3));
       await cdp.detach();
+    });
+
+    await t.test('普通模式工具栏闲置隐藏，鼠标和键盘可唤醒', async () => {
+      await page.locator('#viewport').focus();
+      await page.mouse.move(300, 300);
+      await page.waitForFunction(() => document.querySelector('#toolbar').classList.contains('controls-hidden'), null, { timeout:5000 });
+      await page.mouse.move(310, 300);
+      assert.equal(await page.locator('#toolbar').evaluate(el => el.classList.contains('controls-hidden')), false);
+      await page.waitForFunction(() => document.querySelector('#toolbar').classList.contains('controls-hidden'), null, { timeout:5000 });
+      await page.keyboard.press('Tab');
+      assert.equal(await page.locator('#toolbar').evaluate(el => el.classList.contains('controls-hidden')), false);
     });
 
     await t.test('讲者窗口双向翻页，同一文件的独立演示互不干扰', async () => {
@@ -128,7 +181,7 @@ test('离线播放器：导航、焦点、讲者同步、缩放和打印', async
       await page.setViewportSize({ width: 390, height: 844 });
       await page.waitForFunction(() => document.querySelector('#stage').getBoundingClientRect().width <= innerWidth + 1);
       const bounds = await page.locator('#stage').boundingBox();
-      assert.ok(bounds.width <= 391 && bounds.height <= 768);
+      assert.ok(bounds.width <= 391 && bounds.height <= 844);
       await page.emulateMedia({ media: 'print' });
       const printable = await page.locator('.slide').evaluateAll(nodes => nodes.filter(el => getComputedStyle(el).visibility === 'visible').length);
       assert.equal(printable, count);

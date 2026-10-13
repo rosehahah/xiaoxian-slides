@@ -4,6 +4,7 @@
   const $ = (id) => document.getElementById(id);
   const stage = $('stage');
   const viewport = $('viewport');
+  const toolbar = $('toolbar');
   const layouts = new Set(['cover', 'statement', 'split', 'cards', 'steps', 'timeline', 'quote', 'end']);
   const themes = new Set(['paper', 'blue', 'ink', 'lime', 'coral']);
   let deck;
@@ -23,6 +24,7 @@
   let presenterWindow = null;
   let lastFocus = null;
   let toastTimeout;
+  let controlsTimeout;
   let totalElapsed = 0;
   let slideElapsed = 0;
   let timerRunning = false;
@@ -227,9 +229,16 @@
   }
   const resize = () => {
     const bounds = viewport.getBoundingClientRect();
-    const inset = isPresenter ? 0 : 14;
-    const scale = Math.max(.01, Math.min((bounds.width - inset) / 1600, (bounds.height - inset) / 900));
+    const scale = Math.max(.01, Math.min(bounds.width / 1600, bounds.height / 900));
     stage.style.transform = `scale(${scale})`;
+  };
+  const showControls = () => {
+    clearTimeout(controlsTimeout);
+    if (isPresenter || document.fullscreenElement) return;
+    toolbar.classList.remove('controls-hidden');
+    controlsTimeout = setTimeout(() => {
+      if (!toolbar.matches(':hover') && !toolbar.contains(document.activeElement)) toolbar.classList.add('controls-hidden');
+    }, 2800);
   };
   const fitText = () => {
     // CJK glyph ink can extend beyond its line box. Only shrink against an explicit
@@ -250,7 +259,8 @@
   function closeDialog(dialog) {
     if (!dialog.open) return;
     dialog.close();
-    if (lastFocus && lastFocus.isConnected) lastFocus.focus();
+    const focusTarget = document.fullscreenElement && toolbar.contains(lastFocus) ? viewport : lastFocus;
+    if (focusTarget && focusTarget.isConnected) focusTarget.focus({preventScroll:true});
   }
   const openDialog = (dialog) => {
     if (isPresenter || dialog.open) return;
@@ -300,7 +310,13 @@
   $('fullscreen-button').addEventListener('click', fullscreen);
   $('presenter-button').addEventListener('click', openPresenter);
   $('print-button').addEventListener('click', () => window.print());
+  document.addEventListener('pointermove', showControls, {passive:true});
+  document.addEventListener('touchstart', showControls, {passive:true});
+  toolbar.addEventListener('pointerleave', showControls);
+  toolbar.addEventListener('focusin', showControls);
+  toolbar.addEventListener('focusout', showControls);
   document.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') showControls();
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
     const openModal = document.querySelector('dialog[open]');
     if (openModal) {
@@ -319,6 +335,7 @@
     else if (event.key.toLowerCase() === 'o') action = () => openDialog($('outline-dialog'));
     else if (event.key.toLowerCase() === 'p') action = openPresenter;
     else if (event.key === '?') action = () => openDialog($('help-dialog'));
+    else if (event.key === 'Escape' && document.fullscreenElement) action = fullscreen;
     if (action) { event.preventDefault(); action(); }
   });
   let touchStart = null;
@@ -415,12 +432,20 @@
   }
   window.addEventListener('resize', resize);
   document.addEventListener('fullscreenchange', () => {
-    $('fullscreen-button').textContent = document.fullscreenElement ? '退出全屏' : '全屏 F'; resize();
+    const presentingFullscreen = Boolean(document.fullscreenElement) && !isPresenter;
+    document.body.classList.toggle('is-fullscreen', presentingFullscreen);
+    toolbar.inert = presentingFullscreen;
+    clearTimeout(controlsTimeout);
+    if (presentingFullscreen) viewport.focus({preventScroll:true});
+    if (!presentingFullscreen) showControls();
+    $('fullscreen-button').textContent = document.fullscreenElement ? '退出全屏' : '全屏 F';
+    resize();
   });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(viewport);
   const hashMatch = location.hash.match(/^#slide-(\d+)$/);
   go(hashMatch ? Number(hashMatch[1]) - 1 : 0, {broadcast:false});
   resize();
+  showControls();
   window.xiaoxian = Object.freeze({
     go,
     get current() { return index; },
